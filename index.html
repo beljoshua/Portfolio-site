@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg-image: none;                 /* set to url('https://...') to use a photo */
+      --bg-image: none;                 /* set to url('assets/images/hero-bg.jpg') to use a photo */
       --bg-color: #0b1020;              /* fallback page background */
       --card: rgba(255,255,255,0.06);   /* card surface */
       --text: #e9eefc;                  /* primary text */
@@ -116,7 +116,7 @@
     /* Responsive */
     @media (max-width: 960px){
       .hero-grid{grid-template-columns: 1fr}
-      .about{grid-template-columns: 1fr}
+      .about{grid-template-columns: 1 fr}
       .projects{grid-template-columns: repeat(2, 1fr)}
       .contact-card{grid-template-columns:1fr}
     }
@@ -195,16 +195,23 @@
     </div>
   </section>
 
-  $1
-      <!-- NEW Project (example with image) -->
-      <article class="card project">
-        <div class="thumb" style="background-image:url('assets/images/lock-capstone.jpg'); background-size:cover; background-position:center;"></div>
-        <div class="body">
-          <h3>Capstone: Automated Solenoid Locking System (RFID + Keypad + Solenoid)</h3>
-          <p>Redesigned the earlier lock into a compact PCB with M
+
+
+
+
+
+  <!-- Projects -->
+  <section id="projects" class="container">
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="projects">
       <!-- Project 1 -->
       <article class="card project">
-        <div class="thumb"></div>
+        <div class="thumb" style="background-image:url('assets/images/rfid.png');
+            background-size:contain;          /* show whole image */
+            background-repeat:no-repeat;      /* no tiling */
+            background-position:center;       /* center it */
+            height:220px;                     /* give it a bit more height */
+           "></div>
         <div class="body">
           <h3>RFID + Keypad Solenoid Lock</h3>
           <p>Access control using RC522 RFID, 4‑digit PIN, and a 2N2222 driver. Includes lockout after incorrect attempts.</p>
@@ -217,7 +224,7 @@
       </article>
       <!-- Project 2 -->
       <article class="card project">
-        <div class="thumb"></div>
+        <div class="thumb" style="background-image:url('assets/images/stepper-linear-slide.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
           <h3>Stepper‑Controlled Linear Slide</h3>
           <p>IR remote control for bidirectional stepper movement; clean wiring and limit logic for safe travel.</p>
@@ -230,7 +237,7 @@
       </article>
       <!-- Project 3 -->
       <article class="card project">
-        <div class="thumb"></div>
+        <div class="thumb" style="background-image:url('assets/images/ultrasonic-distance-meter.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
           <h3>Ultrasonic Distance Meter</h3>
           <p>Six‑LED bar shows distance bands; no serial monitor—pure visual feedback.</p>
@@ -243,7 +250,7 @@
       </article>
       <!-- Project 4 -->
       <article class="card project">
-        <div class="thumb"></div>
+        <div class="thumb" style="background-image:url('assets/images/birdeye-trading-sim.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
           <h3>Birdeye‑Driven Trading Sim</h3>
           <p>Python script simulating SOL/token buys and CSV trade logs using live API data.</p>
@@ -256,7 +263,7 @@
       </article>
       <!-- Project 5 -->
       <article class="card project">
-        <div class="thumb"></div>
+        <div class="thumb" style="background-image:url('assets/images/joystick-rgb-led.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
           <h3>Joystick‑Controlled RGB LED</h3>
           <p>Analog joystick maps to color zones; three guaranteed presets for demos.</p>
@@ -268,7 +275,7 @@
       </article>
       <!-- Project 6 -->
       <article class="card project">
-        <div class="thumb"></div>
+        <div class="thumb" style="background-image:url('assets/images/two-led-controller.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
           <h3>Two‑LED Serial Controller</h3>
           <p>Simple serial interface toggles inverse LED states for lab exercises.</p>
@@ -310,14 +317,14 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     /*
-      QUICK CUSTOMIZATION ###
+      QUICK CUSTOMIZATION
       1) Solid color background only:
          - Leave --bg-image as 'none'
          - Change --bg-color in :root to your preferred hex.
 
       2) Photo background:
          - Set --bg-image on <body> inline style, e.g.:
-           <body style="--bg-image: url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1600');">
+           <body style="--bg-image: url('assets/images/hero-bg.jpg');">
          - Keep --bg-color as a dark tone for contrast.
 
       3) Brand color:
@@ -327,8 +334,8 @@
          - Replace headings, subtitle, and About text with your own.
 
       5) Projects:
-         - Duplicate an .project card and edit the title/description/tags.
-         - You can convert .thumb into an image by adding: style="background-image:url('...'); background-size:cover;"
+         - Replace the image file names inside each .thumb inline style.
+         - Keep images in assets/images/ for clean paths.
     */
   </script>
 </body>
