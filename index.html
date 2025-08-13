@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joshua • Electrical Engineering Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-image: none;                 /* set to url('https://...') to use a photo */
+      --bg-color: #0b1020;              /* fallback page background */
+      --card: rgba(255,255,255,0.06);   /* card surface */
+      --text: #e9eefc;                  /* primary text */
+      --muted: #b6c0de;                 /* secondary text */
+      --brand: #5aa9ff;                 /* accent color - change to your brand */
+      --brand-strong: #2f7ee0;
+      --ring: rgba(90,169,255,0.35);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --maxw: 1080px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text);
+      background: var(--bg-color) fixed;
+      background-image: var(--bg-image);
+      background-size: cover; background-position: center; background-attachment: fixed;
+    }
+
+    /* Subtle overlay for readability when using a photo */
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(90,169,255,0.25), transparent 60%),
+                  radial-gradient(1000px 600px at 100% 0%, rgba(255,255,255,0.08), transparent 60%),
+                  linear-gradient(180deg, rgba(7,10,22,0.75), rgba(7,10,22,0.85));
+      mix-blend-mode: normal;
+    }
+
+    a{color:var(--brand); text-decoration:none}
+    a:hover{color:var(--brand-strong)}
+
+    .container{max-width:var(--maxw); margin-inline:auto; padding:0 20px}
+
+    /* Navbar */
+    .nav{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px);
+      background:rgba(8,12,26,0.65); border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+    .brand .dot{width:10px; height:10px; border-radius:50%; background:var(--brand); box-shadow:0 0 12px var(--brand)}
+    .nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
+    .nav a{color:var(--text); opacity:.85; font-weight:600}
+    .nav a:hover{opacity:1}
+
+    /* Hero */
+    .hero{padding:90px 0 40px}
+    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:28px; align-items:center}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+      background:rgba(90,169,255,0.12); color:#d8e8ff; border:1px solid rgba(90,169,255,0.25); font-weight:600; font-size:13px}
+    .title{font-size:44px; line-height:1.08; margin:14px 0 10px; letter-spacing:.2px}
+    .subtitle{font-size:18px; color:var(--muted); max-width:54ch}
+    .cta-row{display:flex; gap:14px; margin-top:22px}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:700; border:1px solid rgba(255,255,255,0.1)}
+    .btn.primary{background:var(--brand); color:#081122; border-color:transparent; box-shadow:0 8px 25px var(--ring)}
+    .btn.secondary{background:transparent; color:var(--text)}
+
+    .card{background:var(--card); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); box-shadow:var(--shadow)}
+
+    .hero-card{padding:18px}
+    .row{display:flex; gap:12px; align-items:center}
+    .chip{padding:6px 10px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09); font-size:13px}
+
+    .kpis{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:12px}
+    .kpi{padding:14px; border-radius:12px; border:1px dashed rgba(255,255,255,0.15); text-align:center}
+    .kpi .num{font-weight:800; font-size:22px}
+    .kpi .lbl{font-size:12px; color:var(--muted)}
+
+    /* Sections */
+    section{padding:50px 0}
+    .section-title{font-size:24px; margin:0 0 18px 0}
+    .grid{display:grid; gap:16px}
+
+    /* About & Skills */
+    .about{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
+    .about .me{padding:20px}
+    .skills{display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; padding:16px}
+    .skill{padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.1)}
+    .skill .name{font-weight:700}
+    .skill .meta{font-size:12px; color:var(--muted)}
+
+    /* Projects */
+    .projects{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
+    .project{position:relative; overflow:hidden}
+    .project .thumb{height:160px; background:linear-gradient(120deg, rgba(90,169,255,0.4), rgba(90,169,255,0.1)); border-bottom:1px solid rgba(255,255,255,0.08)}
+    .project .body{padding:14px}
+    .project h3{margin:0 0 6px 0; font-size:18px}
+    .project p{margin:0; color:var(--muted); font-size:14px}
+    .tags{margin-top:10px; display:flex; gap:8px; flex-wrap:wrap}
+    .tag{font-size:12px; padding:5px 8px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09)}
+
+    /* Contact */
+    .contact-card{padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .contact-card input, .contact-card textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.04); color:var(--text)
+    }
+    .contact-card button{justify-self:start}
+
+    /* Footer */
+    footer{padding:18px 0 40px; color:var(--muted); text-align:center}
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero-grid{grid-template-columns: 1fr}
+      .about{grid-template-columns: 1fr}
+      .projects{grid-template-columns: repeat(2, 1fr)}
+      .contact-card{grid-template-columns:1fr}
+    }
+    @media (max-width: 620px){
+      .projects{grid-template-columns: 1fr}
+      .title{font-size:34px}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><span class="dot"></span> Joshua • Electrical Engineer</div>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="container hero">
+    <div class="hero-grid">
+      <div>
+        <span class="badge">Open to internships & Co‑op</span>
+        <h1 class="title">Designing reliable hardware systems & practical embedded software.</h1>
+        <p class="subtitle">
+          Electrical engineering student focused on embedded systems, sensors, and automation. Experienced with Arduino, Python, Fusion 360, and rapid prototyping.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn secondary" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div class="card hero-card">
+        <div class="row" style="justify-content:space-between">
+          <div class="chip">Arduino • C/C++</div>
+          <div class="chip">Python • APIs</div>
+          <div class="chip">Fusion 360</div>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="num">12+</div><div class="lbl">Completed builds</div></div>
+          <div class="kpi"><div class="num">6</div><div class="lbl">Live demos</div></div>
+          <div class="kpi"><div class="num">3</div><div class="lbl">Team projects</div></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About & Skills -->
+  <section id="about" class="container">
+    <h2 class="section-title">About</h2>
+    <div class="about">
+      <div class="card me">
+        <p>
+          I’m Joshua, an Electrical Engineering student (University of Louisiana at Lafayette, ’27) with hands‑on experience building sensor systems, solenoid locks, stepper‑driven mechanisms, and simple robotics. I enjoy taking projects from quick sketches ➜ working prototype.
+        </p>
+        <p>
+          Interests: embedded systems, control, low‑power design, and data‑driven automation (Python).
+        </p>
+      </div>
+      <div id="skills" class="card">
+        <h3 style="margin:6px 0 10px 0">Core Skills</h3>
+        <div class="skills">
+          <div class="skill"><div class="name">Arduino / AVR</div><div class="meta">RFID, Keypads, steppers, sensors</div></div>
+          <div class="skill"><div class="name">Python</div><div class="meta">Automation scripts, data logging</div></div>
+          <div class="skill"><div class="name">Circuit Design</div><div class="meta">Transistors, drivers, protection</div></div>
+          <div class="skill"><div class="name">3D CAD</div><div class="meta">Fusion 360, rapid prototypes</div></div>
+          <div class="skill"><div class="name">Soldering & Test</div><div class="meta">Multimeter, scope basics</div></div>
+          <div class="skill"><div class="name">Version Control</div><div class="meta">Git/GitHub workflows</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  $1
+      <!-- NEW Project (example with image) -->
+      <article class="card project">
+        <div class="thumb" style="background-image:url('assets/images/lock-capstone.jpg'); background-size:cover; background-position:center;"></div>
+        <div class="body">
+          <h3>Capstone: Automated Solenoid Locking System (RFID + Keypad + Solenoid)</h3>
+          <p>Redesigned the earlier lock into a compact PCB with M
+      <!-- Project 1 -->
+      <article class="card project">
+        <div class="thumb"></div>
+        <div class="body">
+          <h3>RFID + Keypad Solenoid Lock</h3>
+          <p>Access control using RC522 RFID, 4‑digit PIN, and a 2N2222 driver. Includes lockout after incorrect attempts.</p>
+          <div class="tags">
+            <span class="tag">Arduino</span>
+            <span class="tag">RC522</span>
+            <span class="tag">2N2222</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 2 -->
+      <article class="card project">
+        <div class="thumb"></div>
+        <div class="body">
+          <h3>Stepper‑Controlled Linear Slide</h3>
+          <p>IR remote control for bidirectional stepper movement; clean wiring and limit logic for safe travel.</p>
+          <div class="tags">
+            <span class="tag">Stepper</span>
+            <span class="tag">IR Receiver</span>
+            <span class="tag">C/C++</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 3 -->
+      <article class="card project">
+        <div class="thumb"></div>
+        <div class="body">
+          <h3>Ultrasonic Distance Meter</h3>
+          <p>Six‑LED bar shows distance bands; no serial monitor—pure visual feedback.</p>
+          <div class="tags">
+            <span class="tag">HC‑SR04</span>
+            <span class="tag">LEDs</span>
+            <span class="tag">Embedded</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 4 -->
+      <article class="card project">
+        <div class="thumb"></div>
+        <div class="body">
+          <h3>Birdeye‑Driven Trading Sim</h3>
+          <p>Python script simulating SOL/token buys and CSV trade logs using live API data.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">APIs</span>
+            <span class="tag">Data</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 5 -->
+      <article class="card project">
+        <div class="thumb"></div>
+        <div class="body">
+          <h3>Joystick‑Controlled RGB LED</h3>
+          <p>Analog joystick maps to color zones; three guaranteed presets for demos.</p>
+          <div class="tags">
+            <span class="tag">Analog</span>
+            <span class="tag">PWM</span>
+          </div>
+        </div>
+      </article>
+      <!-- Project 6 -->
+      <article class="card project">
+        <div class="thumb"></div>
+        <div class="body">
+          <h3>Two‑LED Serial Controller</h3>
+          <p>Simple serial interface toggles inverse LED states for lab exercises.</p>
+          <div class="tags">
+            <span class="tag">Arduino</span>
+            <span class="tag">Basics</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container">
+    <h2 class="section-title">Contact</h2>
+    <div class="card contact-card">
+      <div>
+        <p style="margin-top:0">Want to collaborate or see a demo? Reach out and I’ll reply soon.</p>
+        <div class="row" style="gap:8px; margin-top:8px">
+          <a class="btn secondary" href="mailto:youremail@example.com">Email</a>
+          <a class="btn secondary" href="https://github.com/yourhandle" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn secondary" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('Thanks! This demo form does not send yet.');">
+        <input type="text" placeholder="Your name" required>
+        <input type="email" placeholder="Your email" required>
+        <textarea rows="4" placeholder="Message"></textarea>
+        <button class="btn primary" type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Joshua • Electrical Engineering Portfolio
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /*
+      QUICK CUSTOMIZATION
+      1) Solid color background only:
+         - Leave --bg-image as 'none'
+         - Change --bg-color in :root to your preferred hex.
+
+      2) Photo background:
+         - Set --bg-image on <body> inline style, e.g.:
+           <body style="--bg-image: url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1600');">
+         - Keep --bg-color as a dark tone for contrast.
+
+      3) Brand color:
+         - Update --brand in :root.
+
+      4) Update text:
+         - Replace headings, subtitle, and About text with your own.
+
+      5) Projects:
+         - Duplicate an .project card and edit the title/description/tags.
+         - You can convert .thumb into an image by adding: style="background-image:url('...'); background-size:cover;"
+    */
+  </script>
+</body>
+</html>
