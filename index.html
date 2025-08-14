@@ -4,133 +4,182 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Joshua • Electrical Engineering Portfolio</title>
+
+  <!-- Load Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    /* =========================
+       THEME VARIABLES (edit here)
+       ========================= */
     :root{
       --bg-image: none;                 /* set to url('assets/images/hero-bg.jpg') to use a photo */
-      --bg-color: #0b1020;              /* fallback page background */
+      --bg-color: #0b1020;              /* page background when no image */
       --card: rgba(255,255,255,0.06);   /* card surface */
-      --text: #e9eefc;                  /* primary text */
+      --text: #e9eefc;                  /* primary text color */
       --muted: #b6c0de;                 /* secondary text */
-      --brand: #5aa9ff;                 /* accent color - change to your brand */
-      --brand-strong: #2f7ee0;
-      --ring: rgba(90,169,255,0.35);
+      --brand: #5aa9ff;                 /* accent color */
+      --brand-strong: #2f7ee0;          /* darker accent (hover) */
+      --ring: rgba(90,169,255,0.35);    /* glow for primary button */
       --shadow: 0 10px 30px rgba(0,0,0,0.35);
       --radius: 18px;
-      --maxw: 1080px;
+      --maxw: 1080px;                   /* content max width */
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    /* Global resets & basics */
+    *{ box-sizing:border-box }
+    html{ scroll-behavior:smooth }
+
     body{
-      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text);
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
       background: var(--bg-color) fixed;
-      background-image: var(--bg-image);
-      background-size: cover; background-position: center; background-attachment: fixed;
+      background-image: var(--bg-image);     /* set this in <body style="--bg-image: url('...')"> to use a photo */
+      background-size: cover; 
+      background-position: center; 
+      background-attachment: fixed;
     }
 
-    /* Subtle overlay for readability when using a photo */
+    /* Soft overlay over the background image for readability */
     body::before{
       content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(90,169,255,0.25), transparent 60%),
-                  radial-gradient(1000px 600px at 100% 0%, rgba(255,255,255,0.08), transparent 60%),
-                  linear-gradient(180deg, rgba(7,10,22,0.75), rgba(7,10,22,0.85));
-      mix-blend-mode: normal;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(90,169,255,0.25), transparent 60%),
+        radial-gradient(1000px 600px at 100% 0%, rgba(255,255,255,0.08), transparent 60%),
+        linear-gradient(180deg, rgba(7,10,22,0.75), rgba(7,10,22,0.85));
     }
 
-    a{color:var(--brand); text-decoration:none}
-    a:hover{color:var(--brand-strong)}
+    /* Links */
+    a{ color:var(--brand); text-decoration:none }
+    a:hover{ color:var(--brand-strong) }
 
-    .container{max-width:var(--maxw); margin-inline:auto; padding:0 20px}
+    /* Page layout container */
+    .container{ max-width:var(--maxw); margin-inline:auto; padding:0 20px }
 
-    /* Navbar */
+    /* ========== NAVBAR ========== */
     .nav{
-      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px);
-      background:rgba(8,12,26,0.65); border-bottom:1px solid rgba(255,255,255,0.08);
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:rgba(8,12,26,0.65);
+      border-bottom:1px solid rgba(255,255,255,0.08);
     }
-    .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
-    .brand .dot{width:10px; height:10px; border-radius:50%; background:var(--brand); box-shadow:0 0 12px var(--brand)}
-    .nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
-    .nav a{color:var(--text); opacity:.85; font-weight:600}
-    .nav a:hover{opacity:1}
+    .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 0 }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px }
+    .brand .dot{ width:10px; height:10px; border-radius:50%; background:var(--brand); box-shadow:0 0 12px var(--brand) }
+    .nav ul{ display:flex; gap:18px; list-style:none; margin:0; padding:0 }
+    .nav a{ color:var(--text); opacity:.85; font-weight:600 }
+    .nav a:hover{ opacity:1 }
 
-    /* Hero */
-    .hero{padding:90px 0 40px}
-    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:28px; align-items:center}
-    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
-      background:rgba(90,169,255,0.12); color:#d8e8ff; border:1px solid rgba(90,169,255,0.25); font-weight:600; font-size:13px}
-    .title{font-size:44px; line-height:1.08; margin:14px 0 10px; letter-spacing:.2px}
-    .subtitle{font-size:18px; color:var(--muted); max-width:54ch}
-    .cta-row{display:flex; gap:14px; margin-top:22px}
-    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:700; border:1px solid rgba(255,255,255,0.1)}
-    .btn.primary{background:var(--brand); color:#081122; border-color:transparent; box-shadow:0 8px 25px var(--ring)}
-    .btn.secondary{background:transparent; color:var(--text)}
+    /* ========== HERO ========== */
+    .hero{ padding:90px 0 40px }
+    .hero-grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:28px; align-items:center }
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+      background:rgba(90,169,255,0.12); color:#d8e8ff; border:1px solid rgba(90,169,255,0.25); font-weight:600; font-size:13px }
+    .title{ font-size:44px; line-height:1.08; margin:14px 0 10px; letter-spacing:.2px }
+    .subtitle{ font-size:18px; color:var(--muted); max-width:54ch }
+    .cta-row{ display:flex; gap:14px; margin-top:22px }
 
-    .card{background:var(--card); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:700; border:1px solid rgba(255,255,255,0.1) }
+    .btn.primary{ background:var(--brand); color:#081122; border-color:transparent; box-shadow:0 8px 25px var(--ring) }
+    .btn.secondary{ background:transparent; color:var(--text) }
 
-    .hero-card{padding:18px}
-    .row{display:flex; gap:12px; align-items:center}
-    .chip{padding:6px 10px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09); font-size:13px}
+    /* Reusable card style */
+    .card{ background:var(--card); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); box-shadow:var(--shadow) }
+    .hero-card{ padding:18px }
+    .row{ display:flex; gap:12px; align-items:center }
+    .chip{ padding:6px 10px; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09); font-size:13px }
 
-    .kpis{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:12px}
-    .kpi{padding:14px; border-radius:12px; border:1px dashed rgba(255,255,255,0.15); text-align:center}
-    .kpi .num{font-weight:800; font-size:22px}
-    .kpi .lbl{font-size:12px; color:var(--muted)}
+    .kpis{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:12px }
+    .kpi{ padding:14px; border-radius:12px; border:1px dashed rgba(255,255,255,0.15); text-align:center }
+    .kpi .num{ font-weight:800; font-size:22px }
+    .kpi .lbl{ font-size:12px; color:var(--muted) }
 
-    /* Sections */
-    section{padding:50px 0}
-    .section-title{font-size:24px; margin:0 0 18px 0}
-    .grid{display:grid; gap:16px}
+    /* ========== SECTIONS ========== */
+    section{ padding:50px 0 }
+    .section-title{ font-size:24px; margin:0 0 18px 0 }
+    .grid{ display:grid; gap:16px }
 
-    /* About & Skills */
-    .about{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
-    .about .me{padding:20px}
-    .skills{display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; padding:16px}
-    .skill{padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.1)}
-    .skill .name{font-weight:700}
-    .skill .meta{font-size:12px; color:var(--muted)}
+    /* About & Skills layout */
+    .about{ display:grid; grid-template-columns: 1fr 1fr; gap:16px }
+    .about .me{ padding:20px }
+    .skills{ display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; padding:16px }
+    .skill{ padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.1) }
+    .skill .name{ font-weight:700 }
+    .skill .meta{ font-size:12px; color:var(--muted) }
 
-    /* Projects */
-    .projects{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
-    .project{position:relative; overflow:hidden}
-    .project .thumb{height:160px; background:linear-gradient(120deg, rgba(90,169,255,0.4), rgba(90,169,255,0.1)); border-bottom:1px solid rgba(255,255,255,0.08)}
-    .project .body{padding:14px}
-    .project h3{margin:0 0 6px 0; font-size:18px}
-    .project p{margin:0; color:var(--muted); font-size:14px}
-    .tags{margin-top:10px; display:flex; gap:8px; flex-wrap:wrap}
-    .tag{font-size:12px; padding:5px 8px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09)}
+  /* Projects grid */
+.projects{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px }
+.project{ position:relative; overflow:hidden }
 
-    /* Contact */
-    .contact-card{padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:16px}
+
+
+/* Uniform thumbnails: same height, fill & crop consistently */
+.project .thumb{
+  aspect-ratio: 16 / 9;          /* consistent height across all cards */
+  background-size: cover;        /* fill the box */
+  background-position: center;   /* default focal point */
+  background-repeat: no-repeat;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  overflow:hidden;
+}
+
+
+    .project .body{ padding:14px }
+    .project h3{ margin:0 0 6px 0; font-size:18px }
+    .project p{ margin:0; color:var(--muted); font-size:14px }
+    .tags{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap }
+    .tag{ font-size:12px; padding:5px 8px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09) }
+
+    /* Contact section */
+    .contact-card{ padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:16px }
     .contact-card input, .contact-card textarea{
-      width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.04); color:var(--text)
+      width:100%; padding:12px 14px; border-radius:12px;
+      border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.04); color:var(--text)
     }
-    .contact-card button{justify-self:start}
+    .contact-card button{ justify-self:start }
 
     /* Footer */
-    footer{padding:18px 0 40px; color:var(--muted); text-align:center}
+    footer{ padding:18px 0 40px; color:var(--muted); text-align:center }
 
-    /* Responsive */
+    /* ========== RESPONSIVE (tablets & phones) ========== */
     @media (max-width: 960px){
-      .hero-grid{grid-template-columns: 1fr}
-      .about{grid-template-columns: 1 fr}
-      .projects{grid-template-columns: repeat(2, 1fr)}
-      .contact-card{grid-template-columns:1fr}
+      .hero-grid{ grid-template-columns: 1fr }
+      .about{ grid-template-columns: 1fr }      /* FIXED: was '1 fr' */
+      .projects{ grid-template-columns: repeat(2, 1fr) }
+      .contact-card{ grid-template-columns:1fr }
     }
     @media (max-width: 620px){
-      .projects{grid-template-columns: 1fr}
-      .title{font-size:34px}
+      .projects{ grid-template-columns: 1fr }
+      .title{ font-size:34px }
     }
+
+/* Make project thumbs use a real <img> and fill/crop perfectly */
+.project .thumb{
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: none;
+}
+.project .thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
+}
+
+
   </style>
 </head>
-<body>
-  <!-- Navbar -->
+<body style="/* Example: set a background image by uncommenting next line */
+             /* --bg-image: url('assets/images/hero-bg.jpg'); */">
+
+  <!-- ================= NAVBAR ================= -->
   <nav class="nav">
     <div class="container nav-inner">
-      <div class="brand"><span class="dot"></span> Joshua • Electrical Engineer</div>
+      <div class="brand"><span class="dot"></span> Joshua (-SANDBOX-) • Electrical Engineer</div>
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -140,20 +189,23 @@
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- ================= HERO ================= -->
   <header class="container hero">
     <div class="hero-grid">
       <div>
-        <span class="badge">Open to internships & Co‑op</span>
-        <h1 class="title">Designing reliable hardware systems & practical embedded software.</h1>
+        <span class="badge">Open to internships &amp; Co-op</span>
+        <h1 class="title">Designing reliable hardware systems &amp; practical embedded software.</h1>
         <p class="subtitle">
-          Electrical engineering student focused on embedded systems, sensors, and automation. Experienced with Arduino, Python, Fusion 360, and rapid prototyping.
+          Electrical engineering student focused on embedded systems, sensors, and automation.
+          Experienced with Arduino, Python, Fusion 360, and rapid prototyping.
         </p>
         <div class="cta-row">
           <a class="btn primary" href="#projects">View Projects</a>
           <a class="btn secondary" href="#contact">Get in touch</a>
         </div>
       </div>
+
+      <!-- Right-side card with skills chips and KPIs -->
       <div class="card hero-card">
         <div class="row" style="justify-content:space-between">
           <div class="chip">Arduino • C/C++</div>
@@ -169,18 +221,23 @@
     </div>
   </header>
 
-  <!-- About & Skills -->
+  <!-- ============== ABOUT & SKILLS ============== -->
   <section id="about" class="container">
     <h2 class="section-title">About</h2>
     <div class="about">
+      <!-- About text -->
       <div class="card me">
         <p>
-          I’m Joshua, an Electrical Engineering student (University of Louisiana at Lafayette, ’27) with hands‑on experience building sensor systems, solenoid locks, stepper‑driven mechanisms, and simple robotics. I enjoy taking projects from quick sketches ➜ working prototype.
+          I’m Joshua, an Electrical Engineering student (University of Louisiana at Lafayette, ’27)
+          with hands-on experience building sensor systems, solenoid locks, stepper-driven mechanisms,
+          and simple robotics. I enjoy taking projects from quick sketches ➜ working prototype.
         </p>
         <p>
-          Interests: embedded systems, control, low‑power design, and data‑driven automation (Python).
+          Interests: embedded systems, control, low-power design, and data-driven automation (Python).
         </p>
       </div>
+
+      <!-- Skills list -->
       <div id="skills" class="card">
         <h3 style="margin:6px 0 10px 0">Core Skills</h3>
         <div class="skills">
@@ -188,71 +245,80 @@
           <div class="skill"><div class="name">Python</div><div class="meta">Automation scripts, data logging</div></div>
           <div class="skill"><div class="name">Circuit Design</div><div class="meta">Transistors, drivers, protection</div></div>
           <div class="skill"><div class="name">3D CAD</div><div class="meta">Fusion 360, rapid prototypes</div></div>
-          <div class="skill"><div class="name">Soldering & Test</div><div class="meta">Multimeter, scope basics</div></div>
+          <div class="skill"><div class="name">Soldering &amp; Test</div><div class="meta">Multimeter, scope basics</div></div>
           <div class="skill"><div class="name">Version Control</div><div class="meta">Git/GitHub workflows</div></div>
         </div>
       </div>
     </div>
   </section>
 
-
-
-
-
-
-  <!-- Projects -->
+  <!-- ============== PROJECTS ============== -->
   <section id="projects" class="container">
     <h2 class="section-title">Selected Projects</h2>
+
+    
     <div class="projects">
-      <!-- Project 1 -->
-      <article class="card project">
-        <div class="thumb" style="background-image:url('assets/images/rfid.png');
-            background-size:contain;          /* show whole image */
-            background-repeat:no-repeat;      /* no tiling */
-            background-position:center;       /* center it */
-            height:220px;                     /* give it a bit more height */
-           "></div>
-        <div class="body">
-          <h3>RFID + Keypad Solenoid Lock</h3>
-          <p>Access control using RC522 RFID, 4‑digit PIN, and a 2N2222 driver. Includes lockout after incorrect attempts.</p>
-          <div class="tags">
-            <span class="tag">Arduino</span>
-            <span class="tag">RC522</span>
-            <span class="tag">2N2222</span>
-          </div>
-        </div>
-      </article>
-      <!-- Project 2 -->
-      <article class="card project">
-        <div class="thumb" style="background-image:url('assets/images/stepper-linear-slide.jpg'); background-size:cover; background-position:center;"></div>
-        <div class="body">
-          <h3>Stepper‑Controlled Linear Slide</h3>
-          <p>IR remote control for bidirectional stepper movement; clean wiring and limit logic for safe travel.</p>
-          <div class="tags">
-            <span class="tag">Stepper</span>
-            <span class="tag">IR Receiver</span>
-            <span class="tag">C/C++</span>
-          </div>
-        </div>
-      </article>
+
+
+     <!-- Project 1 -->
+<article class="card project">
+  <div class="thumb" style="
+    background-image:url('assets/images/rfid.png'); /* keep your existing PNG or change path if needed */
+    background-size:cover;       /* fills the card */
+    background-position:center 40%; /* adjust crop: lower % = show more top, higher % = show more bottom */
+    background-repeat:no-repeat;
+    aspect-ratio:16 / 9;         /* consistent card height */
+  "></div>
+  <div class="body">
+    <h3>RFID + Keypad Solenoid Lock</h3>
+    <p>Access control using RC522 RFID, 4-digit PIN, and a 2N2222 driver. Includes lockout after incorrect attempts.</p>
+    <div class="tags">
+      <span class="tag">Arduino</span>
+      <span class="tag">RC522</span>
+      <span class="tag">2N2222</span>
+    </div>
+  </div>
+</article>
+
+
+<!-- Project 2 -->
+<article class="card project">
+  <div class="thumb" style="
+    background-image:url('assets/images/linear-slide-1600.webp'); /* or use .jpg if needed */
+    background-size:cover;       /* fills the area */
+    background-position:center 30%; /* adjust crop up/down (0% = top, 100% = bottom) */
+    background-repeat:no-repeat;
+    aspect-ratio:16 / 9;         /* consistent height */
+  "></div>
+  <div class="body">
+    <h3>Stepper-Controlled Linear Slide</h3>
+    <p>IR remote control for bidirectional stepper movement; clean wiring and limit logic for safe travel.</p>
+    <div class="tags">
+      <span class="tag">Stepper</span>
+      <span class="tag">IR Receiver</span>
+      <span class="tag">C/C++</span>
+    </div>
+  </div>
+</article>
       <!-- Project 3 -->
       <article class="card project">
         <div class="thumb" style="background-image:url('assets/images/ultrasonic-distance-meter.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
           <h3>Ultrasonic Distance Meter</h3>
-          <p>Six‑LED bar shows distance bands; no serial monitor—pure visual feedback.</p>
+          <p>Six-LED bar shows distance bands; no serial monitor—pure visual feedback.</p>
           <div class="tags">
-            <span class="tag">HC‑SR04</span>
+            <span class="tag">HC-SR04</span>
             <span class="tag">LEDs</span>
             <span class="tag">Embedded</span>
           </div>
         </div>
       </article>
+
       <!-- Project 4 -->
       <article class="card project">
         <div class="thumb" style="background-image:url('assets/images/birdeye-trading-sim.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
-          <h3>Birdeye‑Driven Trading Sim</h3>
+          <h3>Birdeye-Driven Trading Sim</h3>
           <p>Python script simulating SOL/token buys and CSV trade logs using live API data.</p>
           <div class="tags">
             <span class="tag">Python</span>
@@ -261,11 +327,12 @@
           </div>
         </div>
       </article>
+
       <!-- Project 5 -->
       <article class="card project">
         <div class="thumb" style="background-image:url('assets/images/joystick-rgb-led.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
-          <h3>Joystick‑Controlled RGB LED</h3>
+          <h3>Joystick-Controlled RGB LED</h3>
           <p>Analog joystick maps to color zones; three guaranteed presets for demos.</p>
           <div class="tags">
             <span class="tag">Analog</span>
@@ -273,11 +340,12 @@
           </div>
         </div>
       </article>
+
       <!-- Project 6 -->
       <article class="card project">
         <div class="thumb" style="background-image:url('assets/images/two-led-controller.jpg'); background-size:cover; background-position:center;"></div>
         <div class="body">
-          <h3>Two‑LED Serial Controller</h3>
+          <h3>Two-LED Serial Controller</h3>
           <p>Simple serial interface toggles inverse LED states for lab exercises.</p>
           <div class="tags">
             <span class="tag">Arduino</span>
@@ -286,16 +354,17 @@
         </div>
       </article>
     </div>
+    
   </section>
 
-  <!-- Contact -->
+  <!-- ============== CONTACT ============== -->
   <section id="contact" class="container">
     <h2 class="section-title">Contact</h2>
     <div class="card contact-card">
       <div>
         <p style="margin-top:0">Want to collaborate or see a demo? Reach out and I’ll reply soon.</p>
         <div class="row" style="gap:8px; margin-top:8px">
-          <a class="btn secondary" href="mailto:youremail@example.com">Email</a>
+          <a class="btn secondary" href="mailto:beljoshua66@gmail.com">Email</a>
           <a class="btn secondary" href="https://github.com/yourhandle" target="_blank" rel="noreferrer">GitHub</a>
           <a class="btn secondary" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
@@ -309,10 +378,12 @@
     </div>
   </section>
 
+  <!-- ============== FOOTER ============== -->
   <footer>
     © <span id="year"></span> Joshua • Electrical Engineering Portfolio
   </footer>
 
+  <!-- Small script: auto-sets footer year -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
